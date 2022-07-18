@@ -1,0 +1,49 @@
+/*
+ * Copyright (c) 2022
+ * For Implemica
+ */
+package com.AlexanderTuleninov.Implemica.TaskTwo;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * This class is designed to perform a test task from Implemica.
+ * Task: You are given a list of cities. Each direct connection between two cities has its transportation cost
+ * (an integer bigger than 0). The goal is to find the paths of minimum cost between pairs of cities. Assume that
+ * the cost of each path (which is the sum of costs of all direct connections belonging to this path) is at
+ * most 200000. The name of a city is a string containing characters a,...,z and is at most 10 characters long.2).
+ * Input:
+ * s [the number of tests <= 10]
+ * n [the number of cities <= 10000]
+ * NAME [city name]
+ * p [the number of neighbors of city NAME]
+ * nr cost [nr - index of a city connected to NAME (the index of the first city is 1)]
+ * [cost - the transportation cost]
+ * r [the number of paths to find <= 100]
+ * NAME1 NAME2 [NAME1 - source, NAME2 - destination]
+ * [empty line separating the tests]
+ * Output:
+ * cost [the minimum transportation cost from city NAME1 to city NAME2 (one per line)]
+ * @version 01
+ *
+ * @author Alexander Tuleninov
+ */
+public class DistancesFromTo {
+    private static final Logger LOG = LogManager.getLogger(String.valueOf(DistancesFromTo.class));
+
+    public static void main(String[] args) {
+        int n = 4;
+        List<String> NAME = Arrays.asList("gdansk", "bydgoszcz", "torun", "warszawa");
+        int[][] costMatrix = new int[][]{{0, 1, 3, 0},
+                                         {1, 0, 1, 4},
+                                         {3, 1, 0, 1},
+                                         {0, 4, 1, 0}};
+
+        DijkstraAlgorithm dA = new DijkstraAlgorithm(n, costMatrix);
+        LOG.info(dA.findDistancesFromTo(NAME.indexOf("gdansk"), NAME.indexOf("warszawa")));
+        LOG.info(dA.findDistancesFromTo(NAME.indexOf("bydgoszcz"), NAME.indexOf("warszawa")));
+    }
+}
